@@ -25,13 +25,13 @@ use Doctrine\DBAL\DBALException,
     Doctrine\DBAL\Schema\TableDiff;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Platforms\SQLServer2008Platform;
+use Doctrine\DBAL\Platforms\SQLServer2012Platform;
 
 /**
  * The DblibPlatform provides the behavior, features and SQL dialect of the
  * MsSQL database platform.
  */
-class DblibPlatform extends SQLServer2008Platform
+class DblibPlatform extends SQLServer2012Platform
 {
 
     /**
@@ -84,30 +84,7 @@ class DblibPlatform extends SQLServer2008Platform
 
                 
             } else {
-                $orderby = stristr($query, 'ORDER BY');
-
-                if (!$orderby) {
-                    $over = 'ORDER BY (SELECT 0)';
-                } else {
-                    $over = preg_replace('/\"[^,]*\".\"([^,]*)\"/i', '"inner_tbl"."$1"', $orderby);
-                }
-
-                // Remove ORDER BY clause from $query
-                $query = preg_replace('/\s+ORDER BY(.*)/', '', $query);
-
-                // Add ORDER BY clause as an argument for ROW_NUMBER()
-                //$query = "SELECT ROW_NUMBER() OVER ($over) AS \"doctrine_rownum\", * FROM ($query) AS inner_tbl";
-                $query = preg_replace('/^SELECT\s/', '', $query);
-
-                $start = $offset + 1;
-                $end = $offset + $count;
-
-                //$query = "SELECT * FROM (SELECT ROW_NUMBER() OVER ($over) AS \"doctrine_rownum\", $query) AS doctrine_tbl WHERE doctrine_rownum BETWEEN $start AND $end";
-                
-                // distinct x must be first in the select list - didn't work with above
-                list($select_list, $from_part) = explode('FROM', $query);
-                $query = "SELECT * FROM (SELECT $select_list, ROW_NUMBER() OVER ($over) AS \"doctrine_rownum\" FROM $from_part) AS doctrine_tbl WHERE doctrine_rownum BETWEEN $start AND $end";
-                
+                $query .= " OFFSET {$offset} ROWS FETCH NEXT {$count} ROWS ONLY";
             }
         }
         

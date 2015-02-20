@@ -1,10 +1,14 @@
 {
-    "name": "realestateconz/mssql-bundle",
+    "name": "rogeriolino/mssql-bundle",
     "type": "symfony-bundle",
     "description": "Microsoft SQL Server Bundle for Symfony 2",
     "keywords": ["mssql", "sql server", "driver"],
     "license": "MIT",
     "authors": [
+        {
+            "name": "Rogério Lino",
+            "homepage": "http://rogeriolino.com"
+        },
         {
             "name": "Realestate.co.nz",
             "homepage": "http://www.realestate.co.nz"

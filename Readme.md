@@ -2,11 +2,11 @@ Installation
 -------
 
 ### Step 1. Install MssqlBundle
-Add the **realestate/mssql-bundle** into **composer.json**
+Add the **rogeriolino/mssql-bundle** into **composer.json**
 
     "require": {
         ....
-        "realestateconz/mssql-bundle": "master-dev"
+        "rogeriolino/mssql-bundle": "master-dev"
     },
 
 And run
@@ -48,6 +48,9 @@ public function registerBundles()
 Notes
 -------
 ### Prerequsites
+
+Microsoft SQL Server 2012.
+
 This driver requires version 8.0 (from http://www.ubuntitis.com/?p=64) as default 4.2 version does not have UTF support
 
 In /etc/freetds/freetds.conf, change
