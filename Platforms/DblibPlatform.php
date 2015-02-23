@@ -84,6 +84,10 @@ class DblibPlatform extends SQLServer2012Platform
 
                 
             } else {
+                // ORDER BY clause is required
+                if (strpos($query, 'ORDER BY') === false) {
+                    $query .= " ORDER BY 1 ";
+                }
                 $query .= " OFFSET {$offset} ROWS FETCH NEXT {$count} ROWS ONLY";
             }
         }
