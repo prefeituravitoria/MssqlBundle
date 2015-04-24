@@ -2,11 +2,11 @@ Installation
 -------
 
 ### Step 1. Install MssqlBundle
-Add the **rogeriolino/mssql-bundle** into **composer.json**
+Add the **prefeituravitoria/mssql-bundle** into **composer.json**
 
     "require": {
         ....
-        "rogeriolino/mssql-bundle": "master-dev"
+        "prefeituravitoria/mssql-bundle": "master-dev"
     },
 
 And run
